@@ -1,8 +1,10 @@
 package DisplayPersonsList;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
@@ -19,7 +21,13 @@ public class Main {
         persons.add(new Person("alireza", "javadizadeh", 30, new Address("tehran", 1, "kamranieh", "amirnezhad", "542360")));
         persons.add(new Person("mina", "saberi", 22, new Address("tehran", 1, "elahieh", "hosseinpur", "145")));
 
+        sortPersonsBasedOnAge(persons);
         listPersonsBasedOnCityAndZone(persons);
+    }
+
+    private static void sortPersonsBasedOnAge(List<Person> persons) {
+        List<Person> filteredPersons = persons.stream().sorted(Comparator.comparingInt(Person::getAge)).collect(Collectors.toList());
+        filteredPersons.forEach(Person::displayInfo);
     }
 
     private static void listPersonsBasedOnCityAndZone(List<Person> persons) {
