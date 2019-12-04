@@ -1,10 +1,13 @@
 package DisplayPersonsList;
 
+import java.util.List;
 import java.util.ArrayList;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Person> persons = new ArrayList<>();
+        List<Person> persons = new ArrayList<>();
         persons.add(new Person("ahmad", "molla", 24, new Address("tehran", 2, "sattarkhan", "ehsangar", "145")));
         persons.add(new Person("reza", "omrani", 21, new Address("esfahan", 8, "niavaran", "golha", "1230")));
         persons.add(new Person("hamid", "naderi", 23, new Address("tehran", 9, "zaferanieh", "sadoughi", "11")));
@@ -15,5 +18,12 @@ public class Main {
         persons.add(new Person("amin", "resoulzadeh", 28, new Address("tehran", 3, "farmanieh", "sedaghati", "470998")));
         persons.add(new Person("alireza", "javadizadeh", 30, new Address("tehran", 1, "kamranieh", "amirnezhad", "542360")));
         persons.add(new Person("mina", "saberi", 22, new Address("tehran", 1, "elahieh", "hosseinpur", "145")));
+
+        listPersonsBasedOnCityAndZone(persons);
+    }
+
+    private static void listPersonsBasedOnCityAndZone(List<Person> persons) {
+        Predicate<Person> predicate = p -> p.getAddress().getCity().equals("tehran") && p.getAddress().getZone() < 5;
+        persons.stream().filter(predicate).forEach(Person::displayInfo);
     }
 }
