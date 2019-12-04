@@ -24,4 +24,15 @@ public class Person {
     public Address getAddress(){
         return address;
     }
+
+    public void displayInfo() {
+        System.out.printf("first_name:%s  ", firstName);
+        System.out.printf("last_name:%s  ", lastName);
+        System.out.printf("age:%d  ", age);
+        System.out.printf("city:%s  ", address.getCity());
+        System.out.printf("zone:%d  ", address.getZone());
+        System.out.printf("street:%s  ", address.getStreet());
+        System.out.printf("alley:%s  ", address.getAlley());
+        System.out.printf("postalCode:%s\n", address.getPostalCode());
+    }
 }
