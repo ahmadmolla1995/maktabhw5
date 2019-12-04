@@ -3,6 +3,7 @@ package DisplayPersonsList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -22,12 +23,25 @@ public class Main {
         persons.add(new Person("mina", "saberi", 22, new Address("tehran", 1, "elahieh", "hosseinpur", "145")));
 
         sortPersonsBasedOnAge(persons);
+        listPersonsLastNameBasedOnLength(persons);
         listPersonsBasedOnCityAndZone(persons);
     }
 
     private static void sortPersonsBasedOnAge(List<Person> persons) {
-        List<Person> filteredPersons = persons.stream().sorted(Comparator.comparingInt(Person::getAge)).collect(Collectors.toList());
+        List<Person> filteredPersons = persons.stream().
+                sorted(Comparator.comparingInt(Person::getAge)).
+                collect(Collectors.toList());
+
         filteredPersons.forEach(Person::displayInfo);
+    }
+
+    private static void listPersonsLastNameBasedOnLength(List<Person> persons) {
+        Function<Person, Integer> lastNameLength = (p) -> p.getLastName().length();
+        List<Person> filteredLastNames = persons.stream()
+                .sorted(Comparator.comparing(lastNameLength))
+                .collect(Collectors.toList());
+
+        filteredLastNames.forEach(Person::displayInfo);
     }
 
     private static void listPersonsBasedOnCityAndZone(List<Person> persons) {
